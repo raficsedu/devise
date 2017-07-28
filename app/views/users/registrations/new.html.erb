@@ -1,0 +1,7 @@
+<% if devise_error_messages! %>
+    <div class="alert alert-danger">
+      <strong><%= devise_error_messages! %></strong>
+    </div>
+<% end %>
+<%= render "shared/register" %>
+<%= render "users/shared/links" %>
