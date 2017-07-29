@@ -6,6 +6,8 @@ class User < ApplicationRecord
   enum role: [ :admin, :agent, :customer ]
   after_initialize :set_default_role, :if => :new_record?
 
+  has_many :tickets
+
   def set_default_role
     self.role ||= :customer
   end
