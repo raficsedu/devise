@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_user
 
   protected
 
@@ -22,5 +23,14 @@ class ApplicationController < ActionController::Base
   # Overwriting the sign_in redirect path method
   def after_sign_in_path_for(resource_or_scope)
     authenticated_root_path
+  end
+
+  #Setting user
+  def set_user
+    if user_signed_in?
+      @user = current_user
+    else
+      false
+    end
   end
 end

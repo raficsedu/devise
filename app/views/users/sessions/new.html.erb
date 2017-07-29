@@ -4,3 +4,31 @@
     </div>
 <% end %>
 <%= render "shared/login" %>
+
+<% content_for :special_script do %>
+    <script>
+        $(document).ready(function() {
+            $("#validation").validate({
+                rules: {
+                    'user[email]': {
+                        required: true,
+                        email: true
+                    },
+                    'user[password]': {
+                        required: true,
+                        minlength: 6
+                    }
+                },
+                messages: {
+                    'user[email]': {
+                        required: "Email is required"
+                    },
+                    'user[password]': {
+                        required: "Password is required",
+                        minlength: "Password must be at least 6 characters long"
+                    }
+                }
+            });
+        } );
+    </script>
+<% end %>

@@ -15,19 +15,19 @@ ActiveRecord::Schema.define(version: 20170729081608) do
   create_table "ticket_loops", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "ticket_id"
     t.integer  "role"
-    t.string   "description", default: "", null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "tickets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "title",       default: "", null: false
-    t.string   "description", default: "", null: false
+    t.string   "title",                     default: "", null: false
+    t.text     "description", limit: 65535
     t.integer  "user_id"
     t.integer  "agent_id"
-    t.integer  "status"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "status",                    default: 0,  null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

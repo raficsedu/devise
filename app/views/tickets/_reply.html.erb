@@ -1,0 +1,16 @@
+<% if ticket_loop.errors.any? %>
+    <div class="alert alert-danger">
+      <% ticket_loop.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+      <% end %>
+    </div>
+<% end %>
+<form id="validation" role="form" action="/customers/ticket_loops" method="post">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <input type="hidden" name="ticket_loop[ticket_id]" value="<%= ticket_id %>">
+  <div class="form-group">
+    <label>Make a reply</label>
+    <textarea class="form-control" rows="3" name="ticket_loop[description]"></textarea>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>

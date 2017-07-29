@@ -10,16 +10,16 @@ Rails.application.routes.draw do
   }
 
   #Authenticated user root route
-  get 'welcome/index', to: 'welcome#index', as: :authenticated_root
+  get 'welcome', to: 'welcome#index', as: :authenticated_root
 
   #Admin root route
-  get 'admins/index', as: :admin_root
+  get 'admins', to: 'admins#index', as: :admin_root
 
   #Agent root route
-  get 'agents/index', as: :agent_root
+  get 'agents', to: 'agents#index', as: :agent_root
 
   #Customer root route
-  get 'customers/index', as: :customer_root
+  get 'customers', to: 'customers#index', as: :customer_root
 
   #Admin routes
   scope '/admins' do

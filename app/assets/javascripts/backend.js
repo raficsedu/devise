@@ -14,3 +14,5 @@
 //= require jquery
 //= require bootstrap.min
 //= require_tree ./backend
+//= require jquery.validate
+//= require additional-methods.min

@@ -1,5 +1,7 @@
 class TicketLoopsController < ApplicationController
   before_action :set_ticket_loop, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  layout 'backend'
 
   # GET /ticket_loops
   # GET /ticket_loops.json
@@ -25,10 +27,12 @@ class TicketLoopsController < ApplicationController
   # POST /ticket_loops.json
   def create
     @ticket_loop = TicketLoop.new(ticket_loop_params)
+    @ticket_loop.role = @user.role
+    Ticket.find(@ticket_loop.ticket_id).update_attribute(:status, 'open')
 
     respond_to do |format|
       if @ticket_loop.save
-        format.html { redirect_to @ticket_loop, notice: 'Ticket loop was successfully created.' }
+        format.html { redirect_to :back, notice: 'Reply created successfully.' }
         format.json { render :show, status: :created, location: @ticket_loop }
       else
         format.html { render :new }
@@ -69,6 +73,6 @@ class TicketLoopsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_loop_params
-      params.fetch(:ticket_loop, {})
+      params.require(:ticket_loop).permit(:ticket_id, :description)
     end
 end

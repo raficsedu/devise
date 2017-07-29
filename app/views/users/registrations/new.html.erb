@@ -4,3 +4,45 @@
     </div>
 <% end %>
 <%= render "shared/register" %>
+
+<% content_for :special_script do %>
+    <script>
+        $("#validation").validate({
+            rules: {
+                'user[name]': {
+                    required: true
+                },
+                'user[email]': {
+                    required: true,
+                    email: true
+                },
+                'user[password]': {
+                    required: true,
+                    minlength: 6
+                },
+                'user[password_confirmation]': {
+                    required: true,
+                    minlength: 6,
+                    equalTo: "#user_password"
+                }
+            },
+            messages: {
+                'user[name]': {
+                    required: "Name is required"
+                },
+                'user[email]': {
+                    required: "Email is required"
+                },
+                'user[password]': {
+                    required: "Password is required",
+                    minlength: "Password must be at least 6 characters long"
+                },
+                'user[password_confirmation]': {
+                    required: "Confirm Password is required",
+                    minlength: "Password must be at least 6 characters long",
+                    equalTo: "Please enter the same password as above"
+                }
+            }
+        });
+    </script>
+<% end %>

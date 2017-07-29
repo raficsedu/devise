@@ -8,8 +8,14 @@
 </div>
 <!-- /.row -->
 
+<% if notice %>
+    <div class="alert alert-success">
+      <p id="notice"><%= notice %></p>
+    </div>
+<% end %>
+
 <div class="row control-group">
-  <a href="/tickets/new" type="button" class="btn btn-success">Make a ticket</a>
+  <a href="/customers/tickets/new" type="button" class="btn btn-success">Make a ticket</a>
 </div>
 
 <div class="row">
@@ -27,21 +33,24 @@
             <th>Ticket Title</th>
             <th>Ticket Description</th>
             <th>Status</th>
-            <th>Agent Name</th>
             <th>Created Date</th>
+            <th>Edit</th>
             <th>Details</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
-            <td>$320,800</td>
-          </tr>
+          <% sl = 1 %>
+          <% @tickets.each do |ticket| %>
+              <tr>
+                <td><%= sl %></td>
+                <td><%= ticket.title %></td>
+                <td><%= ticket.description.truncate_words(5) %></td>
+                <td><%= ticket.status %></td>
+                <td><%= ticket.created_at.strftime("%m-%d-%Y") %></td>
+                <td><a href="/customers/tickets/<%= ticket.id %>/edit">Edit</a></td>
+                <td><a href="/customers/tickets/<%= ticket.id %>">Details</a></td>
+              </tr>
+          <% end %>
           </tbody>
         </table>
       </div>

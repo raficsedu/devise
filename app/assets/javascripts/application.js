@@ -13,3 +13,5 @@
 
 //= require jquery
 //= require bootstrap.min
+//= require jquery.validate
+//= require additional-methods.min

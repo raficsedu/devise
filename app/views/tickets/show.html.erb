@@ -1,4 +1,81 @@
-<p id="notice"><%= notice %></p>
+<!-- Page Heading -->
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      My Dashboard
+    </h1>
+  </div>
+</div>
+<!-- /.row -->
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<div class="row">
+  <div class="col-lg-12">
+    <% if notice %>
+        <div class="alert alert-success">
+          <p id="notice"><%= notice %></p>
+        </div>
+    <% end %>
+    <div class="panel panel-<% color = (@ticket.status == 'open')? 'green' : 'red' %><%= color %>">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Ticket Status : <%= @ticket.status %></h3>
+      </div>
+      <div class="panel-body">
+        <% if @ticket.status == 'open' %>
+            <div class="col-md-12">
+              <form action="/customers/tickets/<%= @ticket.id %>" method="post">
+                <input name="utf8" type="hidden" value="&#x2713;">
+                <input type="hidden" name="_method" value="patch">
+                <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+                <input type="hidden" name="ticket[status]" value="closed">
+                <button type="submit" class="btn btn-warning pull-right">Close this ticket</button>
+              </form>
+            </div>
+        <% end %>
+        <h4><%= @ticket.title %></h4>
+        <div class="well">
+          <p><%= @ticket.description %></p>
+        </div>
+        <% @ticket.ticket_loops.each do |loop|  %>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  <% if loop.role == 'customer' %>
+                    Reply of Me
+                  <% else %>
+                      Reply From : <%= User.find(@ticket.agent_id).name %>
+                  <% end %>
+                </h3>
+              </div>
+              <div class="panel-body">
+                <%= loop.description %>
+              </div>
+            </div>
+        <% end %>
+        <% if @ticket.ticket_loops.size > 0 %>
+            <hr>
+            <%= render 'reply', ticket_loop: @ticket_loop, ticket_id:@ticket.id %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.row -->
+
+<% content_for :special_script do %>
+    <script>
+        $(document).ready(function() {
+            $("#validation").validate({
+                rules: {
+                    'ticket_loop[description]': {
+                        required: true
+                    }
+                },
+                messages: {
+                    'ticket_loop[description]': {
+                        required: "Description is required"
+                    }
+                }
+            });
+        } );
+    </script>
+<% end %>

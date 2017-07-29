@@ -1,4 +1,4 @@
-<form class="well form-horizontal new_user" id="new_user" action="/users/login" accept-charset="UTF-8" method="post">
+<form class="well form-horizontal new_user" id="validation" action="/users/login" accept-charset="UTF-8" method="post">
   <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
   <fieldset>
     <!-- Form Name -->
@@ -8,7 +8,7 @@
       <label class="col-md-4 control-label">E-Mail</label>
       <div class="col-md-4 inputGroupContainer">
         <div class="input-group">
-          <input name="user[email]" placeholder="E-Mail Address" class="form-control"  type="text">
+          <input name="user[email]" id="user_email" placeholder="E-Mail Address" class="form-control"  type="text">
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
       <label class="col-md-4 control-label" >Password</label>
       <div class="col-md-4 inputGroupContainer">
         <div class="input-group">
-          <input name="user[password]" placeholder="Password" class="form-control"  type="password">
+          <input name="user[password]" id="user_password" placeholder="Password" class="form-control"  type="password">
         </div>
       </div>
     </div>
